@@ -1,4 +1,4 @@
-# SS Group Findings Dashboard BE
+# SS Group Findings Dashboard - BE
 
 This hosts the results of the grouped_findings and raw_findings tables. To do so, it uses:
 - Express to server to the web
