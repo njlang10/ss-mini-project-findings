@@ -10,21 +10,25 @@ const PORT = 8080;
 
 const app = express();
 
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Heartbeat page
 app.get("/", (req, res) => {
-  console.log("handling get");
   return res.send("Hello World!");
 });
 
+// Core routes
 app.get("/groupedFindings", groupedFindings);
 app.get("/rawFindings", rawFindings);
 
+// App startup
 async function main() {
   await sequelize.sync({ force: true });
   await sequelize.authenticate();
   await loadTables();
+
   console.log("Connection has been established successfully.");
   app.listen(PORT, () => console.log(`Listening on port ${PORT}.`));
 }

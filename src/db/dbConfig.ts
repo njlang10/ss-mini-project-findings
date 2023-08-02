@@ -1,4 +1,3 @@
-import { groupedFindings } from "routes/GroupedFindingsRoute";
 import { Sequelize, DataTypes } from "sequelize";
 import { groupedFindings as gfStarter } from "./grouped_findings_starter";
 import { rawFindings } from "./raw_findings_starter";
@@ -7,7 +6,6 @@ const sequelize = new Sequelize({
   dialect: "sqlite",
 });
 
-// Define your models for GroupedFinding and RawFinding
 const GroupedFinding = sequelize.define(
   "GroupedFinding",
   {
@@ -122,6 +120,7 @@ const RawFinding = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
+        // important to not make this a raw string or else it won't find the table (aka will look for GroupedFinding instead of grouped_findings)
         model: GroupedFinding,
         key: "id",
       },
