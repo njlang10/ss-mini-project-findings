@@ -1,4 +1,5 @@
 # SS Group Findings Dashboard - BE
+** Hosted at https://shorturl.at/CRV19
 
 This hosts the results of the grouped_findings and raw_findings tables. To do so, it uses:
 - Express to server to the web
