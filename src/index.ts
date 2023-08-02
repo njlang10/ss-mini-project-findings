@@ -10,7 +10,8 @@ const PORT = 8080;
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   console.log("handling get");
