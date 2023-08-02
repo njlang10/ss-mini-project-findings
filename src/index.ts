@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import { groupedFindings } from "routes/GroupedFindingsRoute";
 import { loadTables, sequelize } from "db/dbConfig";
+import { rawFindings } from "routes/RawFindingsRoute";
 
 sourceMapSupport.install();
 const PORT = 8080;
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/groupedFindings", groupedFindings);
+app.get("/rawFindings", rawFindings);
 
 async function main() {
   await sequelize.sync({ force: true });
