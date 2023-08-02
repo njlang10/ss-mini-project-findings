@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "esnext"
-    ],
+    "target": "ESNext",
+    "lib": ["esnext"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -16,12 +14,8 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "*": [
-        "src/*"
-      ]
+      "*": ["src/*"]
     }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

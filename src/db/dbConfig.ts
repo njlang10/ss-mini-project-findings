@@ -4,6 +4,17 @@ import { rawFindings } from "./raw_findings_starter";
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
+  native: true,
+  define: {
+    charset: "utf8",
+    collate: "utf8_general_ci",
+  },
+  pool: {
+    max: 5, // Maximum number of connections in the pool
+    min: 0, // Minimum number of connections in the pool
+    acquire: 30000, // Maximum time (in milliseconds) that a connection can be idle before being released
+    idle: 10000, // Maximum time (in milliseconds) that a connection can be idle before being released
+  },
 });
 
 const GroupedFinding = sequelize.define(
@@ -129,15 +140,13 @@ const RawFinding = sequelize.define(
   { tableName: "raw_findings" }
 );
 
-// Define the association between GroupedFinding and RawFinding
 GroupedFinding.hasMany(RawFinding);
 RawFinding.belongsTo(GroupedFinding);
 
 async function loadTables(): Promise<void> {
-  await sequelize.transaction(async (t) => {
-    await GroupedFinding.bulkCreate(gfStarter);
-    await RawFinding.bulkCreate(rawFindings);
-  });
+  await sequelize.sync({ force: true });
+  await GroupedFinding.bulkCreate(gfStarter);
+  await RawFinding.bulkCreate(rawFindings);
 }
 
 export { sequelize, GroupedFinding, RawFinding, loadTables };
