@@ -13,6 +13,8 @@ This hosts the results of the grouped_findings and raw_findings tables. To do so
 - Request Options: {id: number}
 - Returns the raw_findings for the specified group_finding_id if provided, otherwise all raw_findings
 
+## Running
+`yarn start`
 
 ## Testing
 `yarn test`
