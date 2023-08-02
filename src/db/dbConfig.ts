@@ -14,7 +14,6 @@ const GroupedFinding = sequelize.define(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
     },
     grouping_type: {
       type: DataTypes.TEXT,
@@ -70,7 +69,6 @@ const RawFinding = sequelize.define(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
     },
     source_security_tool_name: {
       type: DataTypes.TEXT,
@@ -124,7 +122,7 @@ const RawFinding = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "GroupedFindings",
+        model: GroupedFinding,
         key: "id",
       },
     },
@@ -133,12 +131,14 @@ const RawFinding = sequelize.define(
 );
 
 // Define the association between GroupedFinding and RawFinding
-GroupedFinding.hasMany(RawFinding, { foreignKey: "grouped_finding_id" });
-RawFinding.belongsTo(GroupedFinding, { foreignKey: "id" });
+GroupedFinding.hasMany(RawFinding);
+RawFinding.belongsTo(GroupedFinding);
 
 async function loadTables(): Promise<void> {
-  await GroupedFinding.bulkCreate(gfStarter);
-  await RawFinding.bulkCreate(rawFindings);
+  await sequelize.transaction(async (t) => {
+    await GroupedFinding.bulkCreate(gfStarter);
+    await RawFinding.bulkCreate(rawFindings);
+  });
 }
 
 export { sequelize, GroupedFinding, RawFinding, loadTables };
