@@ -1,6 +1,6 @@
 # SS Group Findings Dashboard - Backend
 ## Running
-`yarn start`
+`yarn install && yarn start`
 
 ## Testing
 `yarn test`
